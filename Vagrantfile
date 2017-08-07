@@ -12,4 +12,5 @@ Vagrant.configure("2") do |config|
   config.vm.provision "reload"
   config.vm.provision "shell", path: "ps.ps1", args: "provision-docker.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "examples/powershell/run.ps1"
+  config.vm.provision "shell", path: "ps.ps1", args: "examples/csharp/run.ps1"
 end
