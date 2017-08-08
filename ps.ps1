@@ -47,6 +47,31 @@ function docker {
     }
 }
 
+Add-Type @'
+using System;
+using System.Runtime.InteropServices;
+
+public static class Windows
+{
+    [DllImport("kernel32", SetLastError=true)]
+    public static extern UInt64 GetTickCount64();
+
+    public static TimeSpan GetUptime()
+    {
+        return TimeSpan.FromMilliseconds(GetTickCount64());
+    }
+}
+'@
+
+function time([ScriptBlock]$scriptBlock) {
+    $begin = [Windows]::GetUptime()
+    try {
+        &$scriptBlock
+    } finally {
+        Write-Host "== command {$scriptBlock} executed in $(([Windows]::GetUptime() - $begin).TotalSeconds) seconds"
+    }
+}
+
 cd c:/vagrant
 $script = Resolve-Path $script
 cd (Split-Path $script -Parent)
