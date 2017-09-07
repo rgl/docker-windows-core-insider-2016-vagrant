@@ -1,8 +1,9 @@
 Push-Location golang
 Write-Output 'building the base golang image...'
-time {docker build -t golang:1.8-nanoserver-insider .}
-docker image ls golang:1.8-nanoserver-insider
-docker history golang:1.8-nanoserver-insider
+$tag = 'golang:1.9-nanoserver-insider'
+time {docker build -t $tag .}
+docker image ls $tag
+docker history $tag
 Pop-Location
 
 Push-Location info

@@ -2,8 +2,8 @@
 FROM microsoft/nanoserver-insider-powershell AS builder
 SHELL ["C:/Program Files/PowerShell/PowerShell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
-    $url = 'https://golang.org/dl/go1.8.3.windows-amd64.zip'; `
-    $sha256 = 'de026caef4c5b4a74f359737dcb2d14c67ca45c45093755d3b0d2e0ee3aafd96'; `
+    $url = 'https://storage.googleapis.com/golang/go1.9.windows-amd64.zip'; `
+    $sha256 = '874b144b994643cff1d3f5875369d65c01c216bb23b8edddf608facc43966c8b'; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile go.zip; `
     Write-Host ('Verifying sha256 ({0})...' -f $sha256); `

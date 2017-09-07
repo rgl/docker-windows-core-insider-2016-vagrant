@@ -1,5 +1,5 @@
 # escape=`
-FROM golang:1.8-nanoserver-insider AS builder
+FROM golang:1.9-nanoserver-insider AS builder
 WORKDIR /Users/ContainerUser/go/src/info
 COPY *.go ./
 RUN go build
