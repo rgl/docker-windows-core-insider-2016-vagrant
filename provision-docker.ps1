@@ -43,9 +43,8 @@ Set-Content -Encoding ascii "$env:ProgramData\docker\config\daemon.json" ($confi
 Write-Host 'Starting docker...'
 Start-Service docker
 
-function Write-Title($title) {
-    Write-Output "#`n# $title`n#"
-}
+Write-Host 'Downloading the base images...'
+docker pull microsoft/nanoserver-insider:10.0.16278.1000
 
 Write-Title 'docker version'
 docker version

@@ -72,6 +72,10 @@ function time([ScriptBlock]$scriptBlock) {
     }
 }
 
+function Write-Title($title) {
+    Write-Output "#`n# $title`n#"
+}
+
 cd c:/vagrant
 $script = Resolve-Path $script
 cd (Split-Path $script -Parent)
