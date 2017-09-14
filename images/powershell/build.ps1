@@ -1,7 +1,7 @@
 if (!(Test-Path tmp-PowerShell/PowerShell.exe)) {
-    $url = 'https://github.com/PowerShell/PowerShell/releases/download/v6.0.0-beta.6/PowerShell-6.0.0-beta.6-win10-win2016-x64.zip'
+    $url = 'https://github.com/PowerShell/PowerShell/releases/download/v6.0.0-beta.7/PowerShell-6.0.0-beta.7-win-x64.zip'
     $filename = Split-Path -Leaf $url
-    $sha256 = '61c7a7c74bc76bd0adadd8b4a93c69c6d50dbcf043d3f584e1b94979e82f61a8'
+    $sha256 = '443590a25252b18d54def9cc702b6b46bb3dbcfccac951b4ca08880564fb3582'
     Write-Host ('Downloading Powershell from {0}...' -f $url)
     Invoke-WebRequest -Uri $url -OutFile $filename
     Write-Host ('Verifying sha256 ({0})...' -f $sha256)
@@ -16,7 +16,7 @@ if (!(Test-Path tmp-PowerShell/PowerShell.exe)) {
 }
 
 Write-Output 'building the powershell image...'
-$tag = 'powershell:6.0.0-beta.6'
+$tag = 'powershell:6.0.0-beta.7'
 time {docker build -t $tag .}
 docker image ls $tag
 docker history $tag
