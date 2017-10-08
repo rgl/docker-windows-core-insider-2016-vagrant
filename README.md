@@ -19,6 +19,8 @@ vagrant up
 
 At the end of the provision the [examples](examples/) are run.
 
+The Docker Engine API endpoint is available at http://10.0.0.3:2375.
+
 
 # Troubleshoot
 

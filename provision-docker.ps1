@@ -43,6 +43,16 @@ Set-Content -Encoding ascii "$env:ProgramData\docker\config\daemon.json" ($confi
 Write-Host 'Starting docker...'
 Start-Service docker
 
+Write-Host 'Creating the firewall rule to allow inbound TCP/IP access to the Docker Engine port 2375...'
+New-NetFirewallRule `
+    -Name 'Docker-Engine-In-TCP' `
+    -DisplayName 'Docker Engine (TCP-In)' `
+    -Direction Inbound `
+    -Enabled True `
+    -Protocol TCP `
+    -LocalPort 2375 `
+    | Out-Null
+
 Write-Host 'Downloading the base images...'
 docker pull microsoft/nanoserver-insider:10.0.16278.1000
 
