@@ -1,11 +1,11 @@
 # see https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon
 # see https://docs.docker.com/engine/installation/linux/docker-ce/binaries/#install-server-and-client-binaries-on-windows
-# see https://github.com/docker/docker-ce/releases/tag/v17.09.0-ce-rc2
+# see https://github.com/docker/docker-ce/releases/tag/v17.10.0-ce-rc1
 
 # download install the docker binaries.
-$archiveName = 'docker-17.09.0-ce-rc2.zip'
+$archiveName = 'docker-17.10.0-ce-rc1.zip'
 $archiveUrl = "https://download.docker.com/win/static/test/x86_64/$archiveName"
-$archiveHash = '342d99525def557215292b555fca33a2fa7a4ebc6af2ab30fe1b01c3a90828de'
+$archiveHash = 'a7ca57420e70ef47eeb320eeac2c8bdaea5d70c7b6b92d946fee2e900e6c6b3e'
 $archivePath = "$env:TEMP\$archiveName"
 Invoke-WebRequest $archiveUrl -UseBasicParsing -OutFile $archivePath
 $archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
