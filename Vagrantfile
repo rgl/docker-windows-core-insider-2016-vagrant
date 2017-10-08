@@ -18,6 +18,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "ps.ps1", args: "images/dotnet-sdk/build.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "images/golang/build.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "images/busybox/build.ps1"
+  config.vm.provision "shell", path: "ps.ps1", args: "images/portainer/build.ps1"
+  config.vm.provision "shell", path: "ps.ps1", args: "images/portainer/run.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "examples/batch/run.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "examples/powershell/run.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "examples/csharp/run.ps1"
