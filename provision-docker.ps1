@@ -61,3 +61,11 @@ docker version
 
 Write-Title 'docker info'
 docker info
+
+# see https://docs.docker.com/engine/api/v1.32/
+# see https://github.com/moby/moby/tree/master/api
+Write-Title 'docker info (obtained from http://localhost:2375/info)'
+$infoResponse = Invoke-WebRequest 'http://localhost:2375/info' -UseBasicParsing
+$info = $infoResponse.Content | ConvertFrom-Json
+Write-Output "Engine Version:     $($info.ServerVersion)"
+Write-Output "Engine Api Version: $($infoResponse.Headers['Api-Version'])"
