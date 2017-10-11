@@ -24,6 +24,30 @@ The Docker Engine API endpoint is available at http://10.0.0.3:2375.
 A [portainer](https://portainer.io/) container is also running and available at http://10.0.0.3:9000.
 
 
+# Graceful Container Shutdown
+
+**Windows containers cannot be gracefully shutdown,** either there is no shutdown notification or they are forcefully terminated after a while. Check the [moby issue 25982](https://github.com/moby/moby/issues/25982) for progress.
+
+The next table describes whether a `docker stop --time 600 <container>` will graceful shutdown a container that is running a [console](https://github.com/rgl/graceful-terminating-console-application-windows/), [gui](https://github.com/rgl/graceful-terminating-gui-application-windows/), or [service](https://github.com/rgl/graceful-terminating-windows-service/) app.
+
+| base image        | app     | behaviour                                                              |
+| ----------------- | ------- | ---------------------------------------------------------------------- |
+| nanoserver        | console | does not receive the shutdown notification                             |
+| windowsservercore | console | receives the shutdown notification but is killed after about 5 seconds |
+| nanoserver        | gui     | fails to run `RegisterClass` (there's no GUI support in nano)          |
+| windowsservercore | gui     | receives the shutdown notification but is killed after about 5 seconds |
+| nanoserver        | service | only receives the **pre** shutdown notification but is killed after about 10 seconds |
+| windowsservercore | service | only receives the **pre** shutdown notification but is killed after about 10 seconds |
+
+You can launch these example containers from host as:
+
+```bash
+vagrant execute -c '/vagrant/ps.ps1 examples/graceful-terminating-console-application/run.ps1'
+vagrant execute -c '/vagrant/ps.ps1 examples/graceful-terminating-gui-application/run.ps1'
+vagrant execute -c '/vagrant/ps.ps1 examples/graceful-terminating-windows-service/run.ps1'
+```
+
+
 # Troubleshoot
 
 * Restart the docker daemon in debug mode and watch the logs:
