@@ -1,5 +1,5 @@
 Write-Output 'building the golang image...'
-$tag = 'golang:1.9'
+$tag = 'golang:1.9.1'
 time {docker build -t $tag .}
 docker image ls $tag
 docker history $tag
