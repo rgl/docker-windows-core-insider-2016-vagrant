@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "windows-core-insider-2016-amd64"
 
   config.vm.provider "libvirt" do |lv, config|
-    lv.memory = 2048
+    lv.memory = 4096
     lv.cpus = 2
     lv.cpu_mode = "host-passthrough"
     lv.nested = true
@@ -18,17 +18,18 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.linked_clone = true
-    vb.memory = 2048
+    vb.memory = 4096
     vb.cpus = 2
   end
 
   config.vm.network "private_network", ip: "10.0.0.3"
 
+  config.vm.provision "shell", path: "ps.ps1", args: "provision-hyper-v-feature.ps1"
+  config.vm.provision "shell", path: "ps.ps1", args: "provision-containers-feature.ps1"
+  config.vm.provision "reload"
   config.vm.provision "shell", path: "ps.ps1", args: "provision-project-honolulu.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "provision-chocolatey.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "provision-base.ps1"
-  config.vm.provision "shell", path: "ps.ps1", args: "provision-containers-feature.ps1"
-  config.vm.provision "reload"
   config.vm.provision "shell", path: "ps.ps1", args: "provision-docker.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "images/powershell/build.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "images/dotnet-runtime/build.ps1"
