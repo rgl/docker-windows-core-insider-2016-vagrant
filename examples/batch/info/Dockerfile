@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/nanoserver-insider:10.0.16278.1000
+FROM microsoft/nanoserver:1709
 USER ContainerAdministrator
 WORKDIR /app
 COPY *.bat ./

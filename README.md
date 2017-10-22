@@ -1,4 +1,4 @@
-This is a Docker on Windows Server Core Insider 2016 Vagrant environment for playing with Windows containers.
+This is a Docker on Windows Server Core 1709 Vagrant environment for playing with Windows containers.
 
 
 # Usage
@@ -28,18 +28,18 @@ The Docker Engine API endpoint is available at http://10.0.0.3:2375.
 
 # Graceful Container Shutdown
 
-**Windows containers cannot be gracefully shutdown,** either there is no shutdown notification or they are forcefully terminated after a while. Check the [moby issue 25982](https://github.com/moby/moby/issues/25982) for progress.
+**Windows containers cannot be gracefully shutdown** because they are forcefully terminated after a while. Check the [moby issue 25982](https://github.com/moby/moby/issues/25982) for progress.
 
 The next table describes whether a `docker stop --time 600 <container>` will graceful shutdown a container that is running a [console](https://github.com/rgl/graceful-terminating-console-application-windows/), [gui](https://github.com/rgl/graceful-terminating-gui-application-windows/), or [service](https://github.com/rgl/graceful-terminating-windows-service/) app.
 
-| base image        | app     | behaviour                                                              |
-| ----------------- | ------- | ---------------------------------------------------------------------- |
-| nanoserver        | console | does not receive the shutdown notification                             |
-| windowsservercore | console | receives the shutdown notification but is killed after about 5 seconds |
-| nanoserver        | gui     | fails to run `RegisterClass` (there's no GUI support in nano)          |
-| windowsservercore | gui     | receives the shutdown notification but is killed after about 5 seconds |
-| nanoserver        | service | only receives the **pre** shutdown notification but is killed after about 10 seconds |
-| windowsservercore | service | only receives the **pre** shutdown notification but is killed after about 10 seconds |
+| base image        | app     | behaviour                                                                                    |
+| ----------------- | ------- | -------------------------------------------------------------------------------------------- |
+| nanoserver        | console | receives the `CTRL_CLOSE_EVENT` notification but is killed after about 4 seconds             |
+| windowsservercore | console | receives the `CTRL_CLOSE_EVENT` notification but is killed after about 5 seconds             |
+| nanoserver        | gui     | fails to run because there is no GUI support in nano                                         |
+| windowsservercore | gui     | receives the `WM_QUERYENDSESSION` notification but is killed after about 5 seconds           |
+| nanoserver        | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 10 seconds |
+| windowsservercore | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 10 seconds |
 
 You can launch these example containers from host as:
 

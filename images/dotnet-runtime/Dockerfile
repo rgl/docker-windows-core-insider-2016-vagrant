@@ -17,7 +17,7 @@ RUN cd $env:TMP; `
     Write-Host 'Removing...'; `
     Remove-Item dotnet-runtime-2.0.0-win-x64.zip -Force;
 
-FROM microsoft/nanoserver-insider:10.0.16278.1000
+FROM microsoft/nanoserver:1709
 COPY --from=builder ["/Users/ContainerUser/AppData/Local/Temp/dotnet", "/Program Files/dotnet/"]
 USER ContainerAdministrator
 RUN setx /m PATH "%PATH%;C:/Program Files/dotnet"

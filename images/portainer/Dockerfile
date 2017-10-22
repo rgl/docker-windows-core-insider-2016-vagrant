@@ -5,7 +5,7 @@ WORKDIR C:/Users/ContainerUser
 ADD https://github.com/portainer/portainer/releases/download/1.15.0/portainer-1.15.0-windows-amd64.tar.gz portainer.tgz
 RUN "tar xf portainer.tgz"
 
-FROM microsoft/nanoserver-insider:10.0.16278.1000
+FROM microsoft/nanoserver:1709
 EXPOSE 9000
 COPY --from=builder /Users/ContainerUser/portainer /app
 USER ContainerAdministrator

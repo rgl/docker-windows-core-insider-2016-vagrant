@@ -18,6 +18,8 @@ RUN cd $env:TMP; `
 
 FROM powershell:6.0.0-beta.8
 SHELL ["\"C:/Program Files/PowerShell/powershell.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+# FROM microsoft/windowsservercore:1709
+# SHELL ["powershell.exe", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 COPY --from=builder /Users/ContainerUser/AppData/Local/Temp/graceful-terminating-windows-service.exe /app/
 WORKDIR /app
 COPY install.ps1 ./
