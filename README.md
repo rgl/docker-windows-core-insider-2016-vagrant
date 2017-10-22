@@ -1,5 +1,7 @@
 This is a Docker on Windows Server Core 1709 Vagrant environment for playing with Windows containers.
 
+**THIS BRANCH WILL BE REBASED ON master FROM TIME TO TIME**
+
 
 # Usage
 

@@ -15,6 +15,22 @@ if ($archiveActualHash -ne $archiveHash) {
 Expand-Archive $archivePath -DestinationPath $env:ProgramFiles
 Remove-Item $archivePath
 
+# download and install LinuxKit for LCOW.
+# see https://blog.docker.com/2017/09/preview-linux-containers-on-windows/
+# see https://github.com/friism/linuxkit/releases
+[Environment]::SetEnvironmentVariable('LCOW_SUPPORTED', '1', 'Machine')
+$archiveUrl = 'https://github.com/friism/linuxkit/releases/download/preview-1/linuxkit.zip'
+$archiveHash = '387ede46fd61657a70bc6311cf49282ec965ab9fec7ddcf91febb19e98df9628'
+$archiveName = Split-Path -Leaf $archiveUrl
+$archivePath = "$env:TEMP\$archiveName"
+Invoke-WebRequest $archiveUrl -UseBasicParsing -OutFile $archivePath
+$archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
+if ($archiveActualHash -ne $archiveHash) {
+    throw "the $archiveUrl file hash $archiveActualHash does not match the expected $archiveHash"
+}
+Expand-Archive $archivePath -DestinationPath "$env:ProgramFiles\Linux Containers"
+Remove-Item $archivePath
+
 # add docker to the Machine PATH.
 [Environment]::SetEnvironmentVariable(
     'PATH',
@@ -30,6 +46,7 @@ sc.exe failure docker reset= 0 actions= restart/1000
 # configure docker through a configuration file.
 # see https://docs.docker.com/engine/reference/commandline/dockerd/#windows-configuration-file
 $config = @{
+    'experimental' = $true # for LCOW.
     'debug' = $false
     'labels' = @('os=windows')
     'hosts' = @(
