@@ -6,9 +6,8 @@ param(
 )
 
 Set-StrictMode -Version Latest
-
+$ProgressPreference = 'SilentlyContinue'
 $ErrorActionPreference = 'Stop'
-
 trap {
     Write-Output "ERROR: $_"
     Write-Output (($_.ScriptStackTrace -split '\r?\n') -replace '^(.*)$','ERROR: $1')

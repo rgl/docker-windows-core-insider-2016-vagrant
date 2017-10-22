@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network "private_network", ip: "10.0.0.3"
 
+  config.vm.provision "shell", path: "ps.ps1", args: "provision-project-honolulu.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "provision-chocolatey.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "provision-base.ps1"
   config.vm.provision "shell", path: "ps.ps1", args: "provision-containers-feature.ps1"
