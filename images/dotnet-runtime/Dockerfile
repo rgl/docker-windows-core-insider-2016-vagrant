@@ -1,21 +1,22 @@
 # escape=`
-# see https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md
+# see https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.3.md
 FROM powershell:6.0.0-rc as builder
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
-    $url = 'https://download.microsoft.com/download/5/F/0/5F0362BD-7D0A-4A9D-9BF9-022C6B15B04D/dotnet-runtime-2.0.0-win-x64.zip'; `
-    $sha256 = '750cee101278cb3d521447a0a2ed11a779a42ee680baa32cd7a6cb5ceb8d08a6'; `
+    $url = 'https://download.microsoft.com/download/5/C/1/5C190037-632B-443D-842D-39085F02E1E8/dotnet-runtime-2.0.3-win-x64.zip'; `
+    $sha512 = 'ac4eea527ee8e29286fe46a98be14bf7db3dab6c721eb0c319f80ad3bed57ddadaa719a4325ffd6343d12464d370be90971b1cb81db37d82e90ec7d40b5c3009'; `
+    $filename = Split-Path -Leaf $url; `
     Write-Host ('Downloading {0}...' -f $url); `
-    Invoke-WebRequest -Uri $url -OutFile dotnet-runtime-2.0.0-win-x64.zip; `
-    Write-Host ('Verifying sha256 ({0})...' -f $sha256); `
-    if ((Get-FileHash dotnet-runtime-2.0.0-win-x64.zip -Algorithm sha256).Hash -ne $sha256) { `
+    Invoke-WebRequest -Uri $url -OutFile $filename; `
+    Write-Host ('Verifying sha512 ({0})...' -f $sha512); `
+    if ((Get-FileHash $filename -Algorithm sha512).Hash -ne $sha512) { `
         Write-Host 'FAILED!'; `
         Exit 1; `
     }; `
     Write-Host 'Expanding...'; `
-    Expand-Archive dotnet-runtime-2.0.0-win-x64.zip dotnet; `
+    Expand-Archive $filename dotnet; `
     Write-Host 'Removing...'; `
-    Remove-Item dotnet-runtime-2.0.0-win-x64.zip -Force;
+    Remove-Item $filename -Force;
 
 FROM microsoft/nanoserver:1709
 COPY --from=builder ["/Users/ContainerUser/AppData/Local/Temp/dotnet", "/Program Files/dotnet/"]
