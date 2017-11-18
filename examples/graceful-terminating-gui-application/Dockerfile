@@ -1,6 +1,6 @@
 # escape=`
-FROM powershell:6.0.0-beta.8 as builder
-SHELL ["\"C:/Program Files/PowerShell/powershell.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+FROM powershell:6.0.0-rc as builder
+SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
     $url = 'https://github.com/rgl/graceful-terminating-gui-application-windows/releases/download/v0.3.0/graceful-terminating-gui-application-windows.zip'; `
     $sha256 = '5ab0a294c401cc498a27341280fa26f5795cdcb72a9c1208a0edd282881e8350'; `

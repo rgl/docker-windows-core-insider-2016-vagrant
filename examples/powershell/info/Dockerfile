@@ -1,5 +1,5 @@
-FROM powershell:6.0.0-beta.8
-SHELL ["\"C:/Program Files/PowerShell/powershell.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+FROM powershell:6.0.0-rc
+SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 WORKDIR /app
 COPY *.ps1 ./
 USER ContainerUser

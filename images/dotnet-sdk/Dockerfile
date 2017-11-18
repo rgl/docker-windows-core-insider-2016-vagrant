@@ -1,7 +1,7 @@
 # escape=`
 # see https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md
-FROM powershell:6.0.0-beta.8
-SHELL ["\"C:/Program Files/PowerShell/powershell.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+FROM powershell:6.0.0-rc
+SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 USER ContainerAdministrator
 RUN cd $env:TMP; `
     $url = 'https://download.microsoft.com/download/7/3/A/73A3E4DC-F019-47D1-9951-0453676E059B/dotnet-sdk-2.0.2-win-x64.zip'; `

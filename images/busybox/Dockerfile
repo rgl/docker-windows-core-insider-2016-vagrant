@@ -1,6 +1,6 @@
 # escape=`
-FROM powershell:6.0.0-beta.8 as builder
-SHELL ["\"C:/Program Files/PowerShell/powershell.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+FROM powershell:6.0.0-rc as builder
+SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
     $url = 'https://frippery.org/files/busybox/busybox-w64-FRP-1668-g236e13e3d.exe'; `
     $sha256 = '3945102a2fb4da1091f55ace2b51836e5dfc3224098d46a02a28891a2a7aba7a'; `

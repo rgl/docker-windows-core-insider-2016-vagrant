@@ -1,7 +1,7 @@
-if (!(Test-Path tmp-PowerShell/PowerShell.exe)) {
-    $url = 'https://github.com/PowerShell/PowerShell/releases/download/v6.0.0-beta.8/PowerShell-6.0.0-beta.8-win-x64.zip'
+if (!(Test-Path tmp-PowerShell/pwsh.exe)) {
+    $url = 'https://github.com/PowerShell/PowerShell/releases/download/v6.0.0-rc/PowerShell-6.0.0-rc-win-x64.zip'
+    $sha256 = '076bb3a71044ce68352e010f55c4319f6fffd5b47e3cd0173f14a3fee77b4cee'
     $filename = Split-Path -Leaf $url
-    $sha256 = 'f21c9a79bc35d326f1cf52aeddccba0dbfcc603af921baaf48f32512be5f4888'
     Write-Host ('Downloading Powershell from {0}...' -f $url)
     Invoke-WebRequest -Uri $url -OutFile $filename
     Write-Host ('Verifying sha256 ({0})...' -f $sha256)
@@ -16,7 +16,7 @@ if (!(Test-Path tmp-PowerShell/PowerShell.exe)) {
 }
 
 Write-Output 'building the powershell image...'
-$tag = 'powershell:6.0.0-beta.8'
+$tag = 'powershell:6.0.0-rc'
 time {docker build -t $tag .}
 docker image ls $tag
 docker history $tag
@@ -28,6 +28,6 @@ time {
         --rm `
         --name powershell-smoke-test `
         $tag `
-        'C:/Program Files/PowerShell/powershell.exe' `
+        'C:/Program Files/PowerShell/pwsh.exe' `
         -Command '$PSVersionTable'
 }
