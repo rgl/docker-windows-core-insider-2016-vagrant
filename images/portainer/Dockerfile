@@ -2,7 +2,7 @@
 FROM busybox as builder
 SHELL ["busybox", "sh", "-euxc"]
 WORKDIR C:/Users/ContainerUser
-ADD https://github.com/portainer/portainer/releases/download/1.15.2/portainer-1.15.2-windows-amd64.tar.gz portainer.tgz
+ADD https://github.com/portainer/portainer/releases/download/1.15.5/portainer-1.15.5-windows-amd64.tar.gz portainer.tgz
 RUN "tar xf portainer.tgz"
 
 FROM microsoft/nanoserver:1709
