@@ -4,8 +4,8 @@ FROM powershell:6.0.0-rc.2
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 USER ContainerAdministrator
 RUN cd $env:TMP; `
-    $url = 'https://download.microsoft.com/download/D/7/2/D725E47F-A4F1-4285-8935-A91AE2FCC06A/dotnet-sdk-2.0.3-win-x64.zip'; `
-    $sha512 = '8b4bd2174f413f9043374d0cfa7d4061f0aeedc28c16257e66b99f28454bc0a898c6f52d4cf8349413ae222b21e6f594a8f70c1892844a0416e2be2994af13f1'; `
+    $url = 'https://download.microsoft.com/download/2/9/3/293BC432-348C-4D1C-B628-5AC8AB7FA162/dotnet-sdk-2.1.3-win-x64.zip'; `
+    $sha512 = '5d5be9568ce48b173aacd8807bb3a8085386bf0e00d1a055550a514248c88f52399818f2f5c7d998701dc6cf311395cdb4e1689173344edc207f27abe7fb36ce'; `
     $filename = Split-Path -Leaf $url; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile $filename; `

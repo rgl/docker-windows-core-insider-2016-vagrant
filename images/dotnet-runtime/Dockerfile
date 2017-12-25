@@ -3,8 +3,8 @@
 FROM powershell:6.0.0-rc.2 as builder
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
-    $url = 'https://download.microsoft.com/download/5/C/1/5C190037-632B-443D-842D-39085F02E1E8/dotnet-runtime-2.0.3-win-x64.zip'; `
-    $sha512 = 'ac4eea527ee8e29286fe46a98be14bf7db3dab6c721eb0c319f80ad3bed57ddadaa719a4325ffd6343d12464d370be90971b1cb81db37d82e90ec7d40b5c3009'; `
+    $url = 'https://download.microsoft.com/download/2/B/2/2B2854E7-7EAE-4FE9-85D2-19ACCD716F18/dotnet-runtime-2.0.4-win-x64.zip'; `
+    $sha512 = 'fb5761fa6e38b10bffdff96b841ba1d1bf3d127d2bde0401a2e87f5b31f8bfc48dc8b4a283ef8661fe96c4460ba50e824800c97ccc6858e820bd0e633f85257f'; `
     $filename = Split-Path -Leaf $url; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile $filename; `
