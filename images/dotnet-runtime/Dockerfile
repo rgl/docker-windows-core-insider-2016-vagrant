@@ -1,6 +1,6 @@
 # escape=`
 # see https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.6-download.md
-FROM powershell:6.0.0-rc.2 as builder
+FROM powershell:6.0.2 as builder
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
     $url = 'https://download.microsoft.com/download/8/D/A/8DA04DA7-565B-4372-BBCE-D44C7809A467/dotnet-runtime-2.0.6-win-x64.zip'; `

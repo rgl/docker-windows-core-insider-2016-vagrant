@@ -1,6 +1,6 @@
 # escape=`
-# see https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.4-download.md
-FROM powershell:6.0.0-rc.2
+# see https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.6-download.md
+FROM powershell:6.0.2
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 USER ContainerAdministrator
 RUN cd $env:TMP; `
