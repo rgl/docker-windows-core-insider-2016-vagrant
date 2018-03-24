@@ -1,13 +1,15 @@
 # see https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon
 # see https://docs.docker.com/engine/installation/linux/docker-ce/binaries/#install-server-and-client-binaries-on-windows
-# see https://github.com/docker/docker-ce/releases/tag/v17.11.0-ce-rc3
+# see https://github.com/docker/docker-ce/releases/tag/v18.03.0-ce
 
 # download install the docker binaries.
-$archiveName = 'docker-17.11.0-ce-rc3.zip'
-$archiveUrl = "https://download.docker.com/win/static/test/x86_64/$archiveName"
-$archiveHash = '0611bcd1b7855ee618606895aa1348dc87ad6032a48c5dc25e6209cc5448e13f'
+$archiveVersion = '18.03.0'
+$archiveName = "docker-$archiveVersion-ce.zip"
+$archiveUrl = "https://github.com/rgl/docker-ce-windows-binaries-vagrant/releases/download/v$archiveVersion-ce/$archiveName"
+$archiveHash = '55a9b7378096ca25b8811971d697f60c21e52b79885b400fa5374fe64c7470f5'
 $archivePath = "$env:TEMP\$archiveName"
-Invoke-WebRequest $archiveUrl -UseBasicParsing -OutFile $archivePath
+Write-Host 'Downloading docker...'
+(New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
 $archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
 if ($archiveActualHash -ne $archiveHash) {
     throw "the $archiveUrl file hash $archiveActualHash does not match the expected $archiveHash"
