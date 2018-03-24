@@ -73,7 +73,7 @@ New-NetFirewallRule `
     | Out-Null
 
 Write-Host 'Downloading the base images...'
-docker pull microsoft/nanoserver:1709
+docker pull microsoft/nanoserver-insider:10.0.17623.1002
 
 Write-Title 'docker version'
 docker version

@@ -17,3 +17,4 @@ Write-Output "Using the container by doing an http request to $url..."
 (Invoke-RestMethod $url) -split '\n' | Select-Object -First 8 | ForEach-Object {"    $_"}
 
 Write-Output "The portainer container is available at http://${hostIp}:9000"
+Write-Output 'Or inside the VM at http://localhost:9000'

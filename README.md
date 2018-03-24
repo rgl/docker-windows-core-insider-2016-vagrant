@@ -1,6 +1,26 @@
-This is a Docker on Windows Server Core 1709 Vagrant environment for playing with Windows containers.
+This is a Docker on Windows Server 1803 Insider Vagrant environment for playing with Windows containers.
 
 **THIS BRANCH WILL BE REBASED ON master FROM TIME TO TIME**
+
+## Docker images
+
+This environment builds and uses the following images:
+
+```
+REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
+busybox-info                   latest              ea62c8418538        10 seconds ago      229MB
+go-info                        latest              8d0a9bb86203        22 seconds ago      231MB
+csharp-info                    latest              0387836b21ad        45 seconds ago      296MB
+powershell-info                latest              fdb698ea4640        3 minutes ago       365MB
+batch-info                     latest              f0db0237a922        4 minutes ago       228MB
+portainer                      latest              3a95f6c5ec21        4 minutes ago       264MB
+busybox                        latest              2d64d002a431        4 minutes ago       229MB
+golang                         1.10                9b0720dab303        5 minutes ago       727MB
+dotnet-sdk                     2.1.101             fccfb9070bbe        8 minutes ago       679MB
+dotnet-runtime                 2.0.6               2144f92ba790        9 minutes ago       296MB
+powershell                     6.0.2               924d5eb5bff5        10 minutes ago      361MB
+microsoft/nanoserver-insider   10.0.17623.1002     43eb1f380ab7        3 days ago          228MB
+```
 
 
 # Usage
@@ -36,10 +56,10 @@ The next table describes whether a `docker stop --time 600 <container>` will gra
 
 | base image        | app     | behaviour                                                                                    |
 | ----------------- | ------- | -------------------------------------------------------------------------------------------- |
-| nanoserver        | console | receives the `CTRL_CLOSE_EVENT` notification but is killed after about 4 seconds             |
-| windowsservercore | console | receives the `CTRL_CLOSE_EVENT` notification but is killed after about 5 seconds             |
+| nanoserver        | console | receives the `CTRL_SHUTDOWN_EVENT` notification but is killed after about 5 seconds          |
+| windowsservercore | console | receives the `CTRL_SHUTDOWN_EVENT` notification but is killed after about 5 seconds          |
 | nanoserver        | gui     | fails to run because there is no GUI support in nano                                         |
-| windowsservercore | gui     | receives the `WM_QUERYENDSESSION` notification but is killed after about 5 seconds           |
+| windowsservercore | gui     | **does not receive the shutdown notification**                                               |
 | nanoserver        | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 10 seconds |
 | windowsservercore | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 10 seconds |
 

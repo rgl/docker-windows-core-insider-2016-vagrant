@@ -18,7 +18,7 @@ RUN cd $env:TMP; `
     Write-Host 'Removing...'; `
     Remove-Item $filename -Force;
 
-FROM microsoft/nanoserver:1709
+FROM microsoft/nanoserver-insider:10.0.17623.1002
 COPY --from=builder ["/Users/ContainerUser/AppData/Local/Temp/dotnet", "/Program Files/dotnet/"]
 USER ContainerAdministrator
 RUN setx /m PATH "%PATH%;C:/Program Files/dotnet"
