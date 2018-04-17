@@ -45,7 +45,7 @@ The Docker Engine API endpoint is available at http://10.0.0.3:2375.
 
 [Portainer](https://portainer.io/) is available at http://10.0.0.3:9000.
 
-[Project Honolulu](https://docs.microsoft.com/en-us/windows-server/manage/honolulu/honolulu) is available at https://10.0.0.3:8443.
+[Windows Admin Center](https://docs.microsoft.com/en-us/windows-server/manage/windows-admin-center/overview) is available at https://10.0.0.3:8443.
 
 
 # Graceful Container Shutdown
