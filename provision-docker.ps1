@@ -81,7 +81,7 @@ Write-Title 'windows version'
 (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name BuildLabEx).BuildLabEx
 
 Write-Host 'Downloading the base images...'
-docker pull microsoft/nanoserver-insider:10.0.17623.1002
+docker pull microsoft/nanoserver-insider:10.0.17639.1000
 
 Write-Title 'docker version'
 docker version

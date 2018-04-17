@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "windows-server-core-1709-amd64"
+  config.vm.box = "windows-10-0-17639-1000-amd64"
 
   config.vm.provider "libvirt" do |lv, config|
     lv.memory = 4096

@@ -8,18 +8,18 @@ This environment builds and uses the following images:
 
 ```
 REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
-busybox-info                   latest              ea62c8418538        10 seconds ago      229MB
-go-info                        latest              8d0a9bb86203        22 seconds ago      231MB
-csharp-info                    latest              0387836b21ad        45 seconds ago      296MB
-powershell-info                latest              fdb698ea4640        3 minutes ago       365MB
-batch-info                     latest              f0db0237a922        4 minutes ago       228MB
-portainer                      latest              3a95f6c5ec21        4 minutes ago       264MB
-busybox                        latest              2d64d002a431        4 minutes ago       229MB
-golang                         1.10                9b0720dab303        5 minutes ago       727MB
-dotnet-sdk                     2.1.101             fccfb9070bbe        8 minutes ago       679MB
-dotnet-runtime                 2.0.6               2144f92ba790        9 minutes ago       296MB
-powershell                     6.0.2               924d5eb5bff5        10 minutes ago      361MB
-microsoft/nanoserver-insider   10.0.17623.1002     43eb1f380ab7        3 days ago          228MB
+busybox-info                   latest              d4566866ddae        9 seconds ago       331MB
+go-info                        latest              322eee345723        19 seconds ago      333MB
+csharp-info                    latest              7a740f9a5f42        42 seconds ago      398MB
+powershell-info                latest              e7c956a2d3aa        3 minutes ago       467MB
+batch-info                     latest              322f66d0128a        3 minutes ago       330MB
+portainer                      latest              3b27e2c2f013        4 minutes ago       367MB
+busybox                        latest              fcf308121ee1        4 minutes ago       331MB
+golang                         1.10.1              6796221ac9ba        4 minutes ago       812MB
+dotnet-sdk                     2.1.101             c302715b60bd        7 minutes ago       781MB
+dotnet-runtime                 2.0.6               424ba4086827        8 minutes ago       398MB
+powershell                     6.0.2               096d7b608910        8 minutes ago       463MB
+microsoft/nanoserver-insider   10.0.17639.1000     cf5a144d2a04        12 days ago         330MB
 ```
 
 

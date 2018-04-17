@@ -1,4 +1,4 @@
-$hostIp = (Get-NetAdapter -Name 'Ethernet 2' | Get-NetIPAddress -AddressFamily IPv4).IPAddress
+$hostIp = (Get-NetAdapter -Name 'vEthernet (nat)' | Get-NetIPAddress -AddressFamily IPv4).IPAddress
 $dockerHost = "tcp://${hostIp}:2375"
 
 Write-Output 'Running the portainer container in the background...'
