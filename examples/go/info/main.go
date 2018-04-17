@@ -61,7 +61,7 @@ func dumpNetworkInterfaces() {
 	for _, ifi := range interfaces {
 		addresses, err := ifi.Addrs()
 		if err != nil {
-			fmt.Printf("%s %s (ERROR failed to retreive addresses with error %s)\n", ifi.Name, ifi.Flags, err)
+			fmt.Printf("%s %s (ERROR failed to retrieve addresses with error %s)\n", ifi.Name, ifi.Flags, err)
 		} else {
 			fmt.Printf("%s %s %s\n", ifi.Name, ifi.HardwareAddr, ifi.Flags)
 

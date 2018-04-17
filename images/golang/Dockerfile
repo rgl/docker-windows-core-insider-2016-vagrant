@@ -2,8 +2,8 @@
 FROM powershell:6.0.2 AS builder
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
-    $url = 'https://storage.googleapis.com/golang/go1.10.windows-amd64.zip'; `
-    $sha256 = '210b223031c254a6eb8fa138c3782b23af710a9959d64b551fa81edd762ea167'; `
+    $url = 'https://dl.google.com/go/go1.10.1.windows-amd64.zip'; `
+    $sha256 = '17f7664131202b469f4264161ff3cd0796e8398249d2b646bbe4990301afc678'; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile go.zip; `
     Write-Host ('Verifying sha256 ({0})...' -f $sha256); `
