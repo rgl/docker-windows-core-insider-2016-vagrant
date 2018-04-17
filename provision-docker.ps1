@@ -1,12 +1,12 @@
 # see https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon
 # see https://docs.docker.com/engine/installation/linux/docker-ce/binaries/#install-server-and-client-binaries-on-windows
-# see https://github.com/docker/docker-ce/releases/tag/v18.03.0-ce
+# see https://github.com/docker/docker-ce/releases/tag/v18.04.0-ce
 
 # download install the docker binaries.
-$archiveVersion = '18.03.0'
+$archiveVersion = '18.04.0'
 $archiveName = "docker-$archiveVersion-ce.zip"
 $archiveUrl = "https://github.com/rgl/docker-ce-windows-binaries-vagrant/releases/download/v$archiveVersion-ce/$archiveName"
-$archiveHash = '55a9b7378096ca25b8811971d697f60c21e52b79885b400fa5374fe64c7470f5'
+$archiveHash = '30d455cf7269a39da2e9202f44330c3e2cf8124c13fbd19ac9265eb51e2e2c1b'
 $archivePath = "$env:TEMP\$archiveName"
 Write-Host 'Downloading docker...'
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
@@ -71,6 +71,14 @@ New-NetFirewallRule `
     -Protocol TCP `
     -LocalPort 2375 `
     | Out-Null
+
+Write-Title 'windows version'
+# BuildLabEx is something like:
+#      17639.1000.amd64fre.rs_prerelease.180330-1630
+#      ^^^^^^^^^^ ^^^^^^^^ ^^^^^^^^^^^^^ ^^^^^^ ^^^^
+#      build      platform branch        date   time (redmond tz)
+# see https://channel9.msdn.com/Blogs/One-Dev-Minute/Decoding-Windows-Build-Numbers
+(Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name BuildLabEx).BuildLabEx
 
 Write-Host 'Downloading the base images...'
 docker pull microsoft/nanoserver-insider:10.0.17623.1002
