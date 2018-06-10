@@ -74,14 +74,14 @@ New-NetFirewallRule `
 
 Write-Title 'windows version'
 # BuildLabEx is something like:
-#      17639.1000.amd64fre.rs_prerelease.180330-1630
+#      17677.1000.amd64fre.rs_prerelease.180520-0940
 #      ^^^^^^^^^^ ^^^^^^^^ ^^^^^^^^^^^^^ ^^^^^^ ^^^^
 #      build      platform branch        date   time (redmond tz)
 # see https://channel9.msdn.com/Blogs/One-Dev-Minute/Decoding-Windows-Build-Numbers
 (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name BuildLabEx).BuildLabEx
 
 Write-Host 'Downloading the base images...'
-docker pull microsoft/nanoserver-insider:10.0.17639.1000
+docker pull microsoft/nanoserver-insider:10.0.17677.1000
 
 Write-Title 'docker version'
 docker version

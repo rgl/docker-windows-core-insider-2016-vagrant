@@ -18,6 +18,8 @@ RUN cd $env:TMP; `
 
 FROM powershell:6.0.2
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-COPY --from=builder /Users/ContainerUser/AppData/Local/Temp/go /go/
-RUN setx PATH ('{0}\go\bin;c:\go\bin;{1}' -f $env:USERPROFILE,$env:PATH)
+COPY --from=builder /Windows/TEMP/go /go/
+USER ContainerAdministrator
+RUN [Environment]::SetEnvironmentVariable('PATH', ('{0}\go\bin;c:\go\bin;{1}' -f $env:USERPROFILE,$env:PATH), 'Machine')
+USER ContainerUser
 RUN go version; go env

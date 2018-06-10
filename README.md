@@ -8,24 +8,24 @@ This environment builds and uses the following images:
 
 ```
 REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
-busybox-info                   latest              d4566866ddae        9 seconds ago       331MB
-go-info                        latest              322eee345723        19 seconds ago      333MB
-csharp-info                    latest              7a740f9a5f42        42 seconds ago      398MB
-powershell-info                latest              e7c956a2d3aa        3 minutes ago       467MB
-batch-info                     latest              322f66d0128a        3 minutes ago       330MB
-portainer                      latest              3b27e2c2f013        4 minutes ago       367MB
-busybox                        latest              fcf308121ee1        4 minutes ago       331MB
-golang                         1.10.1              6796221ac9ba        4 minutes ago       812MB
-dotnet-sdk                     2.1.101             c302715b60bd        7 minutes ago       781MB
-dotnet-runtime                 2.0.6               424ba4086827        8 minutes ago       398MB
-powershell                     6.0.2               096d7b608910        8 minutes ago       463MB
-microsoft/nanoserver-insider   10.0.17639.1000     cf5a144d2a04        12 days ago         330MB
+busybox-info                   latest              0c5dd6ddde89        10 seconds ago      233MB
+go-info                        latest              285927bf427f        21 seconds ago      235MB
+csharp-info                    latest              5e99c1c63b9e        42 seconds ago      305MB
+powershell-info                latest              797e108d4813        3 minutes ago       369MB
+batch-info                     latest              b830ad35563b        4 minutes ago       233MB
+portainer                      latest              e224ea5d2ed2        4 minutes ago       270MB
+busybox                        latest              7b6aee9749cd        5 minutes ago       233MB
+golang                         1.10.3              11a69e467f3b        5 minutes ago       731MB
+dotnet-sdk                     2.1.300             d0861b177f39        8 minutes ago       682MB
+dotnet-runtime                 2.1.0               9210d5567632        9 minutes ago       305MB
+powershell                     6.0.2               24994b8ee6db        9 minutes ago       365MB
+microsoft/nanoserver-insider   10.0.17677.1000     318910c6fbca        2 weeks ago         232MB
 ```
 
 
 # Usage
 
-Install the [Base Windows Server Core Insider Box](https://github.com/rgl/windows-2016-vagrant).
+Install the [Base Windows Server Insider 2019 Box](https://github.com/rgl/windows-2016-vagrant).
 
 Install the required plugins:
 

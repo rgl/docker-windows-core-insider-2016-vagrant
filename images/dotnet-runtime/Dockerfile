@@ -18,8 +18,8 @@ RUN cd $env:TMP; `
     Write-Host 'Removing...'; `
     Remove-Item $filename -Force;
 
-FROM microsoft/nanoserver-insider:10.0.17639.1000
-COPY --from=builder ["/Users/ContainerUser/AppData/Local/Temp/dotnet", "/Program Files/dotnet/"]
+FROM microsoft/nanoserver-insider:10.0.17677.1000
+COPY --from=builder ["/Windows/TEMP/dotnet", "/Program Files/dotnet/"]
 USER ContainerAdministrator
 RUN setx /m PATH "%PATH%;C:/Program Files/dotnet"
 RUN setx /m DOTNET_CLI_TELEMETRY_OPTOUT 1
