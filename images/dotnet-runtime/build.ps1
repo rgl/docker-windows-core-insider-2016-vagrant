@@ -1,5 +1,5 @@
 Write-Output 'building the dotnet-runtime image...'
-$tag = 'dotnet-runtime:2.0.6'
+$tag = 'dotnet-runtime:2.1.0'
 time {docker build -t $tag .}
 docker image ls $tag
 docker history $tag
