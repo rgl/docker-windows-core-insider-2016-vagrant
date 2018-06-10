@@ -1,12 +1,12 @@
 # see https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon
 # see https://docs.docker.com/engine/installation/linux/docker-ce/binaries/#install-server-and-client-binaries-on-windows
-# see https://github.com/docker/docker-ce/releases/tag/v18.04.0-ce
+# see https://github.com/docker/docker-ce/releases/tag/v18.05.0-ce
 
 # download install the docker binaries.
-$archiveVersion = '18.04.0'
+$archiveVersion = '18.05.0'
 $archiveName = "docker-$archiveVersion-ce.zip"
 $archiveUrl = "https://github.com/rgl/docker-ce-windows-binaries-vagrant/releases/download/v$archiveVersion-ce/$archiveName"
-$archiveHash = '30d455cf7269a39da2e9202f44330c3e2cf8124c13fbd19ac9265eb51e2e2c1b'
+$archiveHash = '989640cc4510d100d42e7fb05cbe164b965be24d6063b1276c7c38121be18979'
 $archivePath = "$env:TEMP\$archiveName"
 Write-Host 'Downloading docker...'
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
@@ -17,7 +17,9 @@ if ($archiveActualHash -ne $archiveHash) {
 Expand-Archive $archivePath -DestinationPath $env:ProgramFiles
 Remove-Item $archivePath
 
+<#
 # download and install LinuxKit for LCOW.
+# see https://github.com/Microsoft/opengcs
 # see https://blog.docker.com/2017/09/preview-linux-containers-on-windows/
 # see https://github.com/friism/linuxkit/releases
 [Environment]::SetEnvironmentVariable('LCOW_SUPPORTED', '1', 'Machine')
@@ -32,6 +34,7 @@ if ($archiveActualHash -ne $archiveHash) {
 }
 Expand-Archive $archivePath -DestinationPath "$env:ProgramFiles\Linux Containers"
 Remove-Item $archivePath
+#>
 
 # add docker to the Machine PATH.
 [Environment]::SetEnvironmentVariable(
