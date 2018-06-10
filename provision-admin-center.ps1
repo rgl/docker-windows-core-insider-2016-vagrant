@@ -1,9 +1,9 @@
 # see https://docs.microsoft.com/en-us/windows-server/manage/windows-admin-center/overview
-# see https://docs.microsoft.com/en-us/windows-server/manage/admin-center/deployment-guide
+# see https://docs.microsoft.com/en-us/windows-server/manage/windows-admin-center/deploy/install
 
 # download and install.
-$archiveUrl = 'http://download.microsoft.com/download/1/0/5/1059800B-F375-451C-B37E-758FFC7C8C8B/WindowsAdminCenter1804.msi'
-$archiveHash = 'b07b3a0bd45b34e695205ddd4b9bc07c23f65d948ae729a279424186989f54d3'
+$archiveUrl = 'http://download.microsoft.com/download/1/0/5/1059800B-F375-451C-B37E-758FFC7C8C8B/WindowsAdminCenter1804.25.msi'
+$archiveHash = '3f49ad90ca3bbca3147b1df4e5c55e1a8b44bbaef8f6dfa05ba8cf1ae0d2089e'
 $archiveName = Split-Path -Leaf $archiveUrl
 $archivePath = "$env:TEMP\$archiveName"
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
