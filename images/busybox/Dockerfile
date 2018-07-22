@@ -12,5 +12,5 @@ RUN cd $env:TMP; `
         Exit 1; `
     };
 
-FROM microsoft/nanoserver-insider:10.0.17677.1000
+FROM microsoft/nanoserver-insider:10.0.17709.1000
 COPY --from=builder /Windows/TEMP/busybox.exe /Windows/System32/

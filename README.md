@@ -7,19 +7,20 @@ This is a Docker on Windows Server 1803 Insider Vagrant environment for playing 
 This environment builds and uses the following images:
 
 ```
-REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
-busybox-info                   latest              0c5dd6ddde89        10 seconds ago      233MB
-go-info                        latest              285927bf427f        21 seconds ago      235MB
-csharp-info                    latest              5e99c1c63b9e        42 seconds ago      305MB
-powershell-info                latest              797e108d4813        3 minutes ago       369MB
-batch-info                     latest              b830ad35563b        4 minutes ago       233MB
-portainer                      latest              e224ea5d2ed2        4 minutes ago       270MB
-busybox                        latest              7b6aee9749cd        5 minutes ago       233MB
-golang                         1.10.3              11a69e467f3b        5 minutes ago       731MB
-dotnet-sdk                     2.1.300             d0861b177f39        8 minutes ago       682MB
-dotnet-runtime                 2.1.0               9210d5567632        9 minutes ago       305MB
-powershell                     6.0.2               24994b8ee6db        9 minutes ago       365MB
-microsoft/nanoserver-insider   10.0.17677.1000     318910c6fbca        2 weeks ago         232MB
+REPOSITORY                          TAG                 IMAGE ID            CREATED              SIZE
+busybox-info                        latest              f713db9e64d7        13 seconds ago       234MB
+go-info                             latest              932345f89241        29 seconds ago       236MB
+csharp-info                         latest              ae1ae7020617        About a minute ago   305MB
+powershell-info                     latest              638b637e54e5        6 minutes ago        370MB
+batch-info                          latest              6f7e027a5fd7        6 minutes ago        233MB
+portainer                           latest              7044eef5a13b        7 minutes ago        274MB
+busybox                             latest              76504019c7e8        7 minutes ago        234MB
+golang                              1.10.3              d80361d4e9bc        8 minutes ago        732MB
+dotnet-sdk                          2.1.302             144904fac9a4        13 minutes ago       680MB
+dotnet-runtime                      2.1.2               d2674df8bd54        14 minutes ago       305MB
+powershell                          6.0.2               89bf180fe7ed        16 minutes ago       366MB
+microsoft/nanoserver-insider        10.0.17709.1000     21dec011e97e        3 days ago           233MB
+microsoft/windowsservercore-insider 10.0.17709.1000     e51ac5205562        3 days ago           3.42GB
 ```
 
 
@@ -66,9 +67,9 @@ The next table describes whether a `docker stop --time 600 <container>` will gra
 You can launch these example containers from host as:
 
 ```bash
-vagrant execute -c '/vagrant/ps.ps1 examples/graceful-terminating-console-application/run.ps1'
-vagrant execute -c '/vagrant/ps.ps1 examples/graceful-terminating-gui-application/run.ps1'
-vagrant execute -c '/vagrant/ps.ps1 examples/graceful-terminating-windows-service/run.ps1'
+vagrant execute --sudo -c '/vagrant/ps.ps1 examples/graceful-terminating-console-application/run.ps1'
+vagrant execute --sudo -c '/vagrant/ps.ps1 examples/graceful-terminating-gui-application/run.ps1'
+vagrant execute --sudo -c '/vagrant/ps.ps1 examples/graceful-terminating-windows-service/run.ps1'
 ```
 
 
