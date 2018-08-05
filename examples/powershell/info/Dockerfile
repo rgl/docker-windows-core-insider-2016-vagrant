@@ -1,4 +1,4 @@
-FROM powershell:6.0.2
+FROM powershell:6.0.3
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 WORKDIR /app
 COPY *.ps1 ./

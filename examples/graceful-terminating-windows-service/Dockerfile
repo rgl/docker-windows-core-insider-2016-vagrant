@@ -1,5 +1,5 @@
 # escape=`
-FROM powershell:6.0.2 as builder
+FROM powershell:6.0.3 as builder
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
     $url = 'https://github.com/rgl/graceful-terminating-windows-service/releases/download/v0.2.0/graceful-terminating-windows-service.zip'; `
@@ -16,7 +16,7 @@ RUN cd $env:TMP; `
     Write-Host 'Removing unneeded files...'; `
     Remove-Item graceful-terminating-windows-service.zip;
 
-FROM powershell:6.0.2
+FROM powershell:6.0.3
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # FROM mcr.microsoft.com/windowsservercore-insider:10.0.17723.1000
 # FROM mcr.microsoft.com/windows-insider:10.0.17723.1000
