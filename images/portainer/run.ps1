@@ -8,10 +8,11 @@ docker `
     --rm `
     -d `
     -p 9000:9000 `
-    portainer:1.18.1 `
+    portainer:1.19.1 `
         -H $dockerHost
 
-$containerIp = docker inspect --format '{{.NetworkSettings.Networks.nat.IPAddress}}' portainer
+#$containerIp = docker inspect --format '{{.NetworkSettings.Networks.nat.IPAddress}}' portainer
+$containerIp = 'localhost' # NB on Windows 2019 we can use localhost instead of the container IP.
 $url = "http://${containerIp}:9000"
 Write-Output "Using the container by doing an http request to $url..."
 (Invoke-RestMethod $url) -split '\n' | Select-Object -First 8 | ForEach-Object {"    $_"}
