@@ -8,7 +8,7 @@ docker `
     --rm `
     -d `
     -p 9000:9000 `
-    portainer `
+    portainer:1.18.1 `
         -H $dockerHost
 
 $containerIp = docker inspect --format '{{.NetworkSettings.Networks.nat.IPAddress}}' portainer
