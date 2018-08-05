@@ -18,7 +18,8 @@ RUN cd $env:TMP; `
 
 FROM powershell:6.0.2
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-# FROM microsoft/windowsservercore-insider:10.0.17709.1000
+# FROM mcr.microsoft.com/windowsservercore-insider:10.0.17723.1000
+# FROM mcr.microsoft.com/windows-insider:10.0.17723.1000
 # SHELL ["PowerShell.exe", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 COPY --from=builder /Windows/TEMP/graceful-terminating-windows-service.exe /app/
 WORKDIR /app

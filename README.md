@@ -7,20 +7,21 @@ This is a Docker on Windows Server 1803 Insider Vagrant environment for playing 
 This environment builds and uses the following images:
 
 ```
-REPOSITORY                          TAG                 IMAGE ID            CREATED              SIZE
-busybox-info                        latest              f713db9e64d7        13 seconds ago       234MB
-go-info                             latest              932345f89241        29 seconds ago       236MB
-csharp-info                         latest              ae1ae7020617        About a minute ago   305MB
-powershell-info                     latest              638b637e54e5        6 minutes ago        370MB
-batch-info                          latest              6f7e027a5fd7        6 minutes ago        233MB
-portainer                           latest              7044eef5a13b        7 minutes ago        274MB
-busybox                             latest              76504019c7e8        7 minutes ago        234MB
-golang                              1.10.3              d80361d4e9bc        8 minutes ago        732MB
-dotnet-sdk                          2.1.302             144904fac9a4        13 minutes ago       680MB
-dotnet-runtime                      2.1.2               d2674df8bd54        14 minutes ago       305MB
-powershell                          6.0.2               89bf180fe7ed        16 minutes ago       366MB
-microsoft/nanoserver-insider        10.0.17709.1000     21dec011e97e        3 days ago           233MB
-microsoft/windowsservercore-insider 10.0.17709.1000     e51ac5205562        3 days ago           3.42GB
+REPOSITORY                                    TAG                 IMAGE ID            CREATED             SIZE
+busybox-info                                  latest              e6aa0140876d        10 seconds ago      238MB
+go-info                                       latest              186545fae747        22 seconds ago      240MB
+csharp-info                                   latest              eae004315158        48 seconds ago      309MB
+powershell-info                               latest              9b8fafc02729        4 minutes ago       375MB
+batch-info                                    latest              bdb58b8b5c35        5 minutes ago       237MB
+portainer                                     1.18.1              1d26f586dc37        5 minutes ago       279MB
+busybox                                       latest              37e695e25794        5 minutes ago       238MB
+golang                                        1.10.3              fce9e17bb816        6 minutes ago       737MB
+dotnet-sdk                                    2.1.302             8bc9ebf081db        9 minutes ago       685MB
+dotnet-runtime                                2.1.2               fe399e89826a        10 minutes ago      309MB
+powershell                                    6.0.3               166753ab51b7        11 minutes ago      371MB
+mcr.microsoft.com/nanoserver-insider          10.0.17723.1000     837e451a7d06        10 days ago         237MB
+mcr.microsoft.com/windowsservercore-insider   10.0.17723.1000     f13c6a79c357        10 days ago         3.43GB
+mcr.microsoft.com/windows-insider             10.0.17723.1000     9a084b9c5e03        10 days ago         8.17GB
 ```
 
 

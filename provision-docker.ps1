@@ -75,16 +75,25 @@ New-NetFirewallRule `
     -LocalPort 2375 `
     | Out-Null
 
-Write-Title 'windows version'
+Write-Title "windows version"
+$windowsCurrentVersion = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+$windowsVersion = "$($windowsCurrentVersion.CurrentMajorVersionNumber).$($windowsCurrentVersion.CurrentMinorVersionNumber).$($windowsCurrentVersion.CurrentBuildNumber).$($windowsCurrentVersion.UBR)"
+Write-Output $windowsVersion
+
+Write-Title 'windows BuildLabEx version'
 # BuildLabEx is something like:
-#      17709.1000.amd64fre.rs_prerelease.180629-1430
-#      ^^^^^^^^^^ ^^^^^^^^ ^^^^^^^^^^^^^ ^^^^^^ ^^^^
-#      build      platform branch        date   time (redmond tz)
+#      17723.1000.amd64fre.rs5_release.180720-1452
+#      ^^^^^^^^^^ ^^^^^^^^ ^^^^^^^^^^^ ^^^^^^ ^^^^
+#      build      platform branch      date   time (redmond tz)
 # see https://channel9.msdn.com/Blogs/One-Dev-Minute/Decoding-Windows-Build-Numbers
 (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name BuildLabEx).BuildLabEx
 
 Write-Host 'Downloading the base images...'
-docker pull microsoft/nanoserver-insider:10.0.17709.1000
+# NB see image catalog at https://mcr.microsoft.com/v2/_catalog
+# NB see image tags    at https://mcr.microsoft.com/v2/nanoserver-insider/tags/list
+docker pull mcr.microsoft.com/nanoserver-insider:10.0.17723.1000
+# docker pull mcr.microsoft.com/windowsservercore-insider:10.0.17723.1000
+# docker pull mcr.microsoft.com/windows-insider:10.0.17723.1000
 
 Write-Title 'docker version'
 docker version

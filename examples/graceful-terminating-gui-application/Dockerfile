@@ -16,8 +16,9 @@ RUN cd $env:TMP; `
     Write-Host 'Removing unneeded files...'; `
     Remove-Item graceful-terminating-gui-application-windows.zip;
 
-FROM microsoft/nanoserver-insider:10.0.17709.1000
-# FROM microsoft/windowsservercore-insider:10.0.17709.1000
+FROM mcr.microsoft.com/nanoserver-insider:10.0.17723.1000
+# FROM mcr.microsoft.com/windowsservercore-insider:10.0.17723.1000
+# FROM mcr.microsoft.com/windows-insider:10.0.17723.1000
 COPY --from=builder /Windows/TEMP/graceful-terminating-gui-application-windows.exe /app/
 RUN mkdir c:\host
 VOLUME ["c:/host"]
