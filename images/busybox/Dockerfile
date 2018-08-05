@@ -2,8 +2,8 @@
 FROM powershell:6.0.3 as builder
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
-    $url = 'https://frippery.org/files/busybox/busybox-w64-FRP-2187-g28ade29e9.exe'; `
-    $sha256 = 'b286e0bdfce69a57725be40de7d8919b9e7e3face75bdaee3b94079b2835f0f0'; `
+    $url = 'https://frippery.org/files/busybox/busybox-w64-FRP-2294-gf72845d93.exe'; `
+    $sha256 = 'ccb3e429f0d7fac32af3e0518bd97b7a3dbcae9c4ed20be5cc4df26e3443e742'; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile busybox.exe; `
     Write-Host ('Verifying sha256 ({0})...' -f $sha256); `
