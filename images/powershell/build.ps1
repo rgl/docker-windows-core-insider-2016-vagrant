@@ -1,6 +1,6 @@
 if (!(Test-Path tmp-PowerShell/pwsh.exe)) {
-    $url = 'https://github.com/PowerShell/PowerShell/releases/download/v6.0.3/PowerShell-6.0.3-win-x64.zip'
-    $sha256 = 'dffbb84e3e474e00100f6e51f36f7cc1146c70e68cab72f94aa91ab35cb24ac7'
+    $url = 'https://github.com/PowerShell/PowerShell/releases/download/v6.0.4/PowerShell-6.0.4-win-x64.zip'
+    $sha256 = '0b04b63d2b63d4631cf5bd6e531f26b60f3cc1b1db41c8b5360f14776e66f797'
     $filename = "$PWD\$(Split-Path -Leaf $url)"
     Write-Host ('Downloading Powershell from {0}...' -f $url)
     (New-Object System.Net.WebClient).DownloadFile($url, $filename)
@@ -16,7 +16,7 @@ if (!(Test-Path tmp-PowerShell/pwsh.exe)) {
 }
 
 Write-Output 'building the powershell image...'
-$tag = 'powershell:6.0.3'
+$tag = 'powershell:6.0.4'
 time {docker build -t $tag .}
 docker image ls $tag
 docker history $tag

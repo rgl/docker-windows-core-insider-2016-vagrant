@@ -1,5 +1,5 @@
 # escape=`
-FROM powershell:6.0.3 AS builder
+FROM powershell:6.0.4 AS builder
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
     $url = 'https://dl.google.com/go/go1.10.3.windows-amd64.zip'; `
@@ -16,7 +16,7 @@ RUN cd $env:TMP; `
     Write-Host 'Removing...'; `
     Remove-Item go.zip -Force;
 
-FROM powershell:6.0.3
+FROM powershell:6.0.4
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 COPY --from=builder /Windows/TEMP/go /go/
 USER ContainerAdministrator
