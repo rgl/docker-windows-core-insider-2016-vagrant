@@ -1,11 +1,11 @@
 # escape=`
-# see https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.1.2-download.md
+# see https://github.com/dotnet/core/blob/master/release-notes/2.1/2.1.400-SDK/2.1.400-sdk-download.md
 FROM powershell:6.0.4
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 USER ContainerAdministrator
 RUN cd $env:TMP; `
-    $url = 'https://download.microsoft.com/download/4/0/9/40920432-3302-47a8-b13c-bbc4848ad114/dotnet-sdk-2.1.302-win-x64.zip'; `
-    $sha512 = 'a8a74d3329191df6357a00e26591cdc64153970e0cf42f820ade0fb520c9cb0e6ab16ab357dc9538a8c488245c505930b4b0a6b63721e4eebf8682613a63441e'; `
+    $url = 'https://download.microsoft.com/download/9/D/2/9D2354BE-778B-42D6-BA4F-3CEF489A4FDE/dotnet-sdk-2.1.400-win-x64.zip'; `
+    $sha512 = 'c76e80a33ec3c4227e8f5ed2b54c1023949df8aa0563aead69e45aa2173ee4bccbd0ae75c95fda2f22bc22c1bd2f14275400dfa99e6aab58cca30e3e107d438e'; `
     $filename = Split-Path -Leaf $url; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile $filename; `

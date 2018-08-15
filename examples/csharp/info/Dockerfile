@@ -1,5 +1,5 @@
 # escape=`
-FROM dotnet-sdk:2.1.302 AS builder
+FROM dotnet-sdk:2.1.400 AS builder
 WORKDIR /app
 COPY *.csproj ./
 RUN dotnet restore `
