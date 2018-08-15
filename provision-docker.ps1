@@ -82,7 +82,7 @@ Write-Output $windowsVersion
 
 Write-Title 'windows BuildLabEx version'
 # BuildLabEx is something like:
-#      17723.1000.amd64fre.rs5_release.180720-1452
+#      17733.1000.amd64fre.rs5_release.180803-1525
 #      ^^^^^^^^^^ ^^^^^^^^ ^^^^^^^^^^^ ^^^^^^ ^^^^
 #      build      platform branch      date   time (redmond tz)
 # see https://channel9.msdn.com/Blogs/One-Dev-Minute/Decoding-Windows-Build-Numbers
@@ -91,9 +91,9 @@ Write-Title 'windows BuildLabEx version'
 Write-Host 'Downloading the base images...'
 # NB see image catalog at https://mcr.microsoft.com/v2/_catalog
 # NB see image tags    at https://mcr.microsoft.com/v2/nanoserver-insider/tags/list
-docker pull mcr.microsoft.com/nanoserver-insider:10.0.17723.1000
-# docker pull mcr.microsoft.com/windowsservercore-insider:10.0.17723.1000
-# docker pull mcr.microsoft.com/windows-insider:10.0.17723.1000
+docker pull mcr.microsoft.com/nanoserver-insider:10.0.17733.1000
+# docker pull mcr.microsoft.com/windowsservercore-insider:10.0.17733.1000
+# docker pull mcr.microsoft.com/windows-insider:10.0.17733.1000
 
 Write-Title 'docker version'
 docker version
