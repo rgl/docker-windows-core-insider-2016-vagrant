@@ -1,10 +1,10 @@
 # escape=`
-# see https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.1.2-download.md
+# see https://github.com/dotnet/core/blob/master/release-notes/2.1/2.1.3/2.1.3.md
 FROM powershell:6.0.4 as builder
 SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
-    $url = 'https://download.microsoft.com/download/1/f/7/1f7755c5-934d-4638-b89f-1f4ffa5afe89/dotnet-runtime-2.1.2-win-x64.zip'; `
-    $sha512 = '9e67c62feb34aeb52a45d0e623d1ad098637a322545956eb5e6de2287ddad2412b766c492ae5a7dddc123a4cb47cfc51d9bb10d0e30c007ec3fc90666f9733c8'; `
+    $url = 'https://download.microsoft.com/download/6/E/B/6EBD972D-2E2F-41EB-9668-F73F5FDDC09C/dotnet-runtime-2.1.3-win-x64.zip'; `
+    $sha512 = 'eec3465a1dfecc3890e8c07d45198352a9ef4026bebc867ca8723ddf4bf30e83b79dfae4c5b8800a4b1b83d38c63be06b8ebf7c5dce87cf7108cbb83b169b47f'; `
     $filename = Split-Path -Leaf $url; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile $filename; `
