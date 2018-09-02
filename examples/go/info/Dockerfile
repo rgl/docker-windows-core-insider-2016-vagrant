@@ -4,7 +4,7 @@ WORKDIR /Users/ContainerUser/go/src/info
 COPY *.go ./
 RUN go build
 
-FROM mcr.microsoft.com/nanoserver-insider:10.0.17733.1000
+FROM mcr.microsoft.com/nanoserver-insider:10.0.17744.1001
 WORKDIR /app
 COPY --from=builder /Users/ContainerUser/go/src/info/info.exe ./
 ENTRYPOINT ["/app/info.exe"]
