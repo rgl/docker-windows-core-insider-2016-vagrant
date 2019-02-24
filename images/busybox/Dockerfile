@@ -1,9 +1,9 @@
 # escape=`
-FROM powershell:6.0.4 as builder
-SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+FROM powershell:6.1.3 as builder
+SHELL ["pwsh.exe", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
-    $url = 'https://frippery.org/files/busybox/busybox-w64-FRP-2294-gf72845d93.exe'; `
-    $sha256 = 'ccb3e429f0d7fac32af3e0518bd97b7a3dbcae9c4ed20be5cc4df26e3443e742'; `
+    $url = 'https://frippery.org/files/busybox/busybox-w64-FRP-2962-g9aae70405.exe'; `
+    $sha256 = 'adb2360905f737cb7e58c915056f18f7b1e0843e99474ed5ce6f4bde042943ef'; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile busybox.exe; `
     Write-Host ('Verifying sha256 ({0})...' -f $sha256); `
@@ -12,5 +12,5 @@ RUN cd $env:TMP; `
         Exit 1; `
     };
 
-FROM mcr.microsoft.com/nanoserver-insider:10.0.17744.1001
+FROM mcr.microsoft.com/windows/nanoserver:1809
 COPY --from=builder /Windows/TEMP/busybox.exe /Windows/System32/

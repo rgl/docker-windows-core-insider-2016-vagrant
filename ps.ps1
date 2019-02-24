@@ -5,6 +5,7 @@ param(
     [String[]]$scriptArguments
 )
 
+#Set-PSDebug -Trace 1
 Set-StrictMode -Version Latest
 $ProgressPreference = 'SilentlyContinue'
 $ErrorActionPreference = 'Stop'
@@ -19,6 +20,10 @@ trap {
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol `
     -bor [Net.SecurityProtocolType]::Tls11 `
     -bor [Net.SecurityProtocolType]::Tls12
+
+function Write-Title($title) {
+    Write-Output "#`n# $title`n#"
+}
 
 # wrap the choco command (to make sure this script aborts when it fails).
 function Start-Choco([string[]]$Arguments, [int[]]$SuccessExitCodes=@(0)) {

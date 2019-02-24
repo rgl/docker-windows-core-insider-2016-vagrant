@@ -1,25 +1,33 @@
 # escape=`
-FROM powershell:6.0.4 AS builder
-SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-RUN cd $env:TMP; `
-    $url = 'https://dl.google.com/go/go1.11.windows-amd64.zip'; `
-    $sha256 = '29f9291270f0b303d0b270f993972ead215b1bad3cc674a0b8a09699d978aeb4'; `
-    Write-Host ('Downloading {0}...' -f $url); `
-    Invoke-WebRequest -Uri $url -OutFile go.zip; `
-    Write-Host ('Verifying sha256 ({0})...' -f $sha256); `
-    if ((Get-FileHash go.zip -Algorithm sha256).Hash -ne $sha256) { `
-        Write-Host 'FAILED!'; `
-        Exit 1; `
+FROM powershell:6.1.3 AS builder
+SHELL ["pwsh.exe", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+WORKDIR C:/Windows/TEMP
+RUN function Install-Artifact($url, $hash, $to) { `
+        Write-Host ('Downloading {0}...' -f $url); `
+        Invoke-WebRequest -Uri $url -OutFile artifact.zip; `
+        Write-Host ('Verifying if the hash is {0}...' -f $hash); `
+        if ((Get-FileHash artifact.zip -Algorithm sha256).Hash -ne $hash) { `
+            Write-Host 'FAILED!'; `
+            Exit 1; `
+        }; `
+        Write-Host 'Expanding...'; `
+        mkdir -Force $to | Out-Null; `
+        Expand-Archive artifact.zip $to; `
+        Write-Host 'Removing...'; `
+        Remove-Item artifact.zip -Force; `
+        Write-Host 'Done.'; `
     }; `
-    Write-Host 'Expanding...'; `
-    Expand-Archive go.zip .; `
-    Write-Host 'Removing...'; `
-    Remove-Item go.zip -Force;
+    Install-Artifact `
+        'https://dl.google.com/go/go1.11.5.windows-amd64.zip' `
+        '1c734fe614fa052f44694e993f2d06f24a56b6703ee46fdfb2b9bf277819fe40' `
+        '.'; `
+    Install-Artifact `
+        'https://github.com/git-for-windows/git/releases/download/v2.20.1.windows.1/MinGit-2.20.1-64-bit.zip' `
+        '02328f37eeefe8d8f5396553ac8f91c98d09e533d49d93c617a4643915a76552' `
+        'git';
+RUN ./git/cmd/git config --file git/mingw64/etc/gitconfig core.autocrlf false;
 
-FROM powershell:6.0.4
-SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-COPY --from=builder /Windows/TEMP/go /go/
-USER ContainerAdministrator
-RUN [Environment]::SetEnvironmentVariable('PATH', ('{0}\go\bin;c:\go\bin;{1}' -f $env:USERPROFILE,$env:PATH), 'Machine')
-USER ContainerUser
-RUN go version; go env
+FROM powershell:6.1.3
+COPY --from=builder C:/Windows/TEMP/go C:/go
+COPY --from=builder C:/Windows/TEMP/git C:/git
+ENV PATH='C:\Windows\System32;C:\Windows;C:\Program Files\PowerShell;C:\go\bin;C:\git\cmd'

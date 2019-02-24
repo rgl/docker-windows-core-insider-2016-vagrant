@@ -1,14 +1,14 @@
 # see https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon
 # see https://docs.docker.com/engine/installation/linux/docker-ce/binaries/#install-server-and-client-binaries-on-windows
-# see https://github.com/docker/docker-ce/releases/tag/v18.06.1-ce
+# see https://github.com/docker/docker-ce/releases/tag/v18.09.2
 
 # download install the docker binaries.
-$archiveVersion = '18.06.1'
-$archiveName = "docker-$archiveVersion-ce.zip"
-$archiveUrl = "https://github.com/rgl/docker-ce-windows-binaries-vagrant/releases/download/v$archiveVersion-ce/$archiveName"
-$archiveHash = 'cc49fc22268450146858dc5f080b38c0649c454f2550b0bae26685aa1b726e1a'
+$archiveVersion = '18.09.2'
+$archiveName = "docker-$archiveVersion.zip"
+$archiveUrl = "https://github.com/rgl/docker-ce-windows-binaries-vagrant/releases/download/v$archiveVersion/$archiveName"
+$archiveHash = '7d930a4f889c5b71a918e540f81130adf88382fa4bef371cefb63d32fab35f8e'
 $archivePath = "$env:TEMP\$archiveName"
-Write-Host 'Downloading docker...'
+Write-Host "Installing docker $archiveVersion..."
 (New-Object System.Net.WebClient).DownloadFile($archiveUrl, $archivePath)
 $archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
 if ($archiveActualHash -ne $archiveHash) {
@@ -16,25 +16,6 @@ if ($archiveActualHash -ne $archiveHash) {
 }
 Expand-Archive $archivePath -DestinationPath $env:ProgramFiles
 Remove-Item $archivePath
-
-<#
-# download and install LinuxKit for LCOW.
-# see https://github.com/Microsoft/opengcs
-# see https://blog.docker.com/2017/09/preview-linux-containers-on-windows/
-# see https://github.com/friism/linuxkit/releases
-[Environment]::SetEnvironmentVariable('LCOW_SUPPORTED', '1', 'Machine')
-$archiveUrl = 'https://github.com/friism/linuxkit/releases/download/preview-1/linuxkit.zip'
-$archiveHash = '387ede46fd61657a70bc6311cf49282ec965ab9fec7ddcf91febb19e98df9628'
-$archiveName = Split-Path -Leaf $archiveUrl
-$archivePath = "$env:TEMP\$archiveName"
-Invoke-WebRequest $archiveUrl -UseBasicParsing -OutFile $archivePath
-$archiveActualHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
-if ($archiveActualHash -ne $archiveHash) {
-    throw "the $archiveUrl file hash $archiveActualHash does not match the expected $archiveHash"
-}
-Expand-Archive $archivePath -DestinationPath "$env:ProgramFiles\Linux Containers"
-Remove-Item $archivePath
-#>
 
 # add docker to the Machine PATH.
 [Environment]::SetEnvironmentVariable(
@@ -44,14 +25,13 @@ Remove-Item $archivePath
 # add docker to the current process PATH.
 $env:PATH += ";$env:ProgramFiles\docker"
 
-# install the docker service and configure it to always restart on failure.
+# install the docker service.
 dockerd --register-service
-sc.exe failure docker reset= 0 actions= restart/1000
 
 # configure docker through a configuration file.
 # see https://docs.docker.com/engine/reference/commandline/dockerd/#windows-configuration-file
 $config = @{
-    'experimental' = $true # for LCOW.
+    'experimental' = $false
     'debug' = $false
     'labels' = @('os=windows')
     'hosts' = @(
@@ -64,6 +44,18 @@ Set-Content -Encoding ascii "$env:ProgramData\docker\config\daemon.json" ($confi
 
 Write-Host 'Starting docker...'
 Start-Service docker
+
+# see https://blogs.technet.microsoft.com/virtualization/2018/10/01/incoming-tag-changes-for-containers-in-windows-server-2019/
+# see https://hub.docker.com/_/microsoft-windows-nanoserver
+# see https://hub.docker.com/_/microsoft-windows-servercore
+# see https://hub.docker.com/_/microsoft-windowsfamily-windows
+Write-Host 'Pulling base image...'
+docker pull mcr.microsoft.com/windows/nanoserver:1809
+#docker pull mcr.microsoft.com/windows/servercore:1809
+#docker pull mcr.microsoft.com/windows/servercore:ltsc2019
+#docker pull mcr.microsoft.com/windows:1809
+#docker pull microsoft/dotnet:2.1-sdk-nanoserver-1809
+#docker pull microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1809
 
 Write-Host 'Creating the firewall rule to allow inbound TCP/IP access to the Docker Engine port 2375...'
 New-NetFirewallRule `
@@ -82,18 +74,11 @@ Write-Output $windowsVersion
 
 Write-Title 'windows BuildLabEx version'
 # BuildLabEx is something like:
-#      17744.1001.amd64fre.rs5_release.180818-1845
-#      ^^^^^^^^^^ ^^^^^^^^ ^^^^^^^^^^^ ^^^^^^ ^^^^
-#      build      platform branch      date   time (redmond tz)
+#      17763.1.amd64fre.rs5_release.180914-1434
+#      ^^^^^^^ ^^^^^^^^ ^^^^^^^^^^^ ^^^^^^ ^^^^
+#      build   platform branch      date   time (redmond tz)
 # see https://channel9.msdn.com/Blogs/One-Dev-Minute/Decoding-Windows-Build-Numbers
 (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name BuildLabEx).BuildLabEx
-
-Write-Host 'Downloading the base images...'
-# NB see image catalog at https://mcr.microsoft.com/v2/_catalog
-# NB see image tags    at https://mcr.microsoft.com/v2/nanoserver-insider/tags/list
-docker pull mcr.microsoft.com/nanoserver-insider:10.0.17744.1001
-# docker pull mcr.microsoft.com/windowsservercore-insider:10.0.17744.1001
-# docker pull mcr.microsoft.com/windows-insider:10.0.17744.1001
 
 Write-Title 'docker version'
 docker version

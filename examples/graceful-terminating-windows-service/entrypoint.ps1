@@ -8,6 +8,23 @@ trap {
     Exit 1
 }
 
+# see WaitToKillServiceTimeout at https://technet.microsoft.com/en-us/library/cc976045.aspx
+Write-Host 'Maximum time [ms] that Windows waits before killing a service:'
+(Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control -Name WaitToKillServiceTimeout).WaitToKillServiceTimeout
+# see WaitToKillAppTimeout at https://technet.microsoft.com/en-us/library/cc978624.aspx
+# NB this overriddes HKCU:\Control Panel\Desktop
+if (!(Test-Path 'HKU:\.DEFAULT\Control Panel\Desktop')) {
+    New-PSDrive -PSProvider Registry -Name HKU -Root HKEY_USERS | Out-Null
+}
+Write-Host 'Maximum time [ms] that Windows waits before killing a application:'
+$waitToKillAppTimeoutItemProperty = Get-ItemProperty -Path 'HKU:\.DEFAULT\Control Panel\Desktop' -Name WaitToKillAppTimeout -ErrorAction SilentlyContinue
+if ($waitToKillAppTimeoutItemProperty) {
+    $waitToKillAppTimeoutItemProperty.WaitToKillAppTimeout
+} else {
+    'unknown' # TFM says its 20s. BUT then again, it also says, WaitToKillAppTimeout is 20s, but in a container its 5s.
+}
+
+
 $serviceName = 'graceful-terminating-windows-service'
 
 Write-Output 'Starting the service in background...'

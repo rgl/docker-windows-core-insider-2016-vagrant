@@ -1,6 +1,5 @@
 # escape=`
-FROM mcr.microsoft.com/nanoserver-insider:10.0.17744.1001
-USER ContainerAdministrator
+FROM mcr.microsoft.com/windows/nanoserver:1809
 WORKDIR /app
 COPY *.bat ./
 ENTRYPOINT info.bat

@@ -1,28 +1,4 @@
-This is a Docker on Windows Server 1803 Insider Vagrant environment for playing with Windows containers.
-
-**THIS BRANCH WILL BE REBASED ON master FROM TIME TO TIME**
-
-## Docker images
-
-This environment builds and uses the following images:
-
-```
-REPOSITORY                                    TAG                 IMAGE ID            CREATED             SIZE
-busybox-info                                  latest              06ef826886b6        11 seconds ago      239MB
-go-info                                       latest              e92aab453124        24 seconds ago      241MB
-csharp-info                                   latest              8bfd2d72ea5e        52 seconds ago      311MB
-powershell-info                               latest              11c08e30ace8        4 minutes ago       376MB
-batch-info                                    latest              e13275d2c443        5 minutes ago       239MB
-portainer                                     1.19.1              eaf6eb69c5ea        5 minutes ago       282MB
-busybox                                       latest              2a06d19a36a0        6 minutes ago       239MB
-golang                                        1.11                a2b66c8550af        6 minutes ago       717MB
-dotnet-sdk                                    2.1.401             cafb1d1a4d39        10 minutes ago      694MB
-dotnet-runtime                                2.1.3               58de4aac28a2        11 minutes ago      311MB
-powershell                                    6.0.4               b5bad8e5a539        12 minutes ago      372MB
-mcr.microsoft.com/nanoserver-insider          10.0.17744.1001     a0128f6324b4        12 days ago         239MB
-mcr.microsoft.com/windowsservercore-insider   10.0.17744.1001     f548cf725ce4        12 days ago         3.43GB
-mcr.microsoft.com/windows-insider             10.0.17744.1001     a0981c329b9c        12 days ago         8.32GB
-```
+This is a Docker on Windows Server 2019 (1809) Vagrant environment for playing with Windows containers.
 
 
 # Usage
@@ -49,21 +25,27 @@ The Docker Engine API endpoint is available at http://10.0.0.3:2375.
 
 [Windows Admin Center](https://docs.microsoft.com/en-us/windows-server/manage/windows-admin-center/overview) is available at https://10.0.0.3:8443.
 
-
 # Graceful Container Shutdown
 
 **Windows containers cannot be gracefully shutdown** because they are forcefully terminated after a while. Check the [moby issue 25982](https://github.com/moby/moby/issues/25982) for progress.
 
 The next table describes whether a `docker stop --time 600 <container>` will graceful shutdown a container that is running a [console](https://github.com/rgl/graceful-terminating-console-application-windows/), [gui](https://github.com/rgl/graceful-terminating-gui-application-windows/), or [service](https://github.com/rgl/graceful-terminating-windows-service/) app.
 
-| base image        | app     | behaviour                                                                                    |
-| ----------------- | ------- | -------------------------------------------------------------------------------------------- |
-| nanoserver        | console | receives the `CTRL_SHUTDOWN_EVENT` notification but is killed after about 5 seconds          |
-| windowsservercore | console | receives the `CTRL_SHUTDOWN_EVENT` notification but is killed after about 5 seconds          |
-| nanoserver        | gui     | fails to run because there is no GUI support in nano                                         |
-| windowsservercore | gui     | **does not receive the shutdown notification**                                               |
-| nanoserver        | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 10 seconds |
-| windowsservercore | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 10 seconds |
+| base image                                | app     | behavior                                                                                     |
+| ----------------------------------------- | ------- | -------------------------------------------------------------------------------------------- |
+| mcr.microsoft.com/windows/nanoserver:1809 | console | receives the `CTRL_SHUTDOWN_EVENT` notification but is killed after about 5 seconds          |
+| mcr.microsoft.com/windows/servercore:1809 | console | receives the `CTRL_SHUTDOWN_EVENT` notification but is killed after about 5 seconds          |
+| mcr.microsoft.com/windows:1809            | console | receives the `CTRL_SHUTDOWN_EVENT` notification but is killed after about 5 seconds          |
+| mcr.microsoft.com/windows/nanoserver:1809 | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 15 seconds |
+| mcr.microsoft.com/windows/servercore:1809 | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 15 seconds |
+| mcr.microsoft.com/windows:1809            | service | receives the `SERVICE_CONTROL_PRESHUTDOWN` notification but is killed after about 20 seconds |
+| mcr.microsoft.com/windows/nanoserver:1809 | gui     | fails to run because there is no GUI support libraries in the base image                     |
+| mcr.microsoft.com/windows/servercore:1809 | gui     | does not receive the shutdown messages `WM_QUERYENDSESSION` or `WM_CLOSE`                    |
+| mcr.microsoft.com/windows:1809            | gui     | does not receive the shutdown messages `WM_QUERYENDSESSION` or `WM_CLOSE`                    |
+
+**NG** setting `WaitToKillServiceTimeout` (e.g. `Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control -Name WaitToKillServiceTimeout -Value '450000'`) does not have any effect on extending the kill service timeout.
+
+**NB** setting `WaitToKillAppTimeout` (e.g. `New-ItemProperty -Force -Path 'HKU:\.DEFAULT\Control Panel\Desktop' -Name WaitToKillAppTimeout -Value '450000' -PropertyType String`) does not have any effect on extending the kill application timeout.
 
 You can launch these example containers from host as:
 
@@ -73,6 +55,27 @@ vagrant execute --sudo -c '/vagrant/ps.ps1 examples/graceful-terminating-gui-app
 vagrant execute --sudo -c '/vagrant/ps.ps1 examples/graceful-terminating-windows-service/run.ps1'
 ```
 
+# Docker images
+
+This environment builds and uses the following images:
+
+```
+REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
+busybox-info                               latest              148cb1b334e3        34 minutes ago      347MB
+go-info                                    latest              644f4b2fa768        34 minutes ago      349MB
+csharp-info                                latest              d0b0248f106d        35 minutes ago      416MB
+powershell-info                            latest              fad79bd1d4db        39 minutes ago      499MB
+batch-info                                 latest              9cb46d805a65        39 minutes ago      347MB
+portainer                                  1.19.2              d598699bd89f        40 minutes ago      389MB
+busybox                                    latest              4cb09b058e11        40 minutes ago      347MB
+golang                                     1.11.5              bad41bc76d84        41 minutes ago      880MB
+dotnet-sdk                                 2.1.504             2d732427e05c        45 minutes ago      814MB
+dotnet-runtime                             2.1.8               40e962d4e0e2        About an hour ago   416MB
+powershell                                 6.1.3               25895882dda7        About an hour ago   495MB
+mcr.microsoft.com/windows/nanoserver       1809                d65434b3ecb4        11 days ago         347MB
+mcr.microsoft.com/windows/servercore       1809                640a8acbeb6f        11 days ago         4.28GB
+mcr.microsoft.com/windows                  1809                05d3297bfa19        3 months ago        9.9GB
+```
 
 # Troubleshoot
 
@@ -81,7 +84,6 @@ vagrant execute --sudo -c '/vagrant/ps.ps1 examples/graceful-terminating-windows
   * restart docker with `Restart-Service docker`
   * watch the logs with `Get-EventLog -LogName Application -Source docker -Newest 50`
 * For more information see the [Microsoft Troubleshooting guide](https://docs.microsoft.com/en-us/virtualization/windowscontainers/troubleshooting) and the [CleanupContainerHostNetworking](https://github.com/Microsoft/Virtualization-Documentation/tree/live/windows-server-container-tools/CleanupContainerHostNetworking) page.
-
 
 # References
 

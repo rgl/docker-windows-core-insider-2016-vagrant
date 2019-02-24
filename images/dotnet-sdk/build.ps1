@@ -1,5 +1,5 @@
 Write-Output 'building the dotnet-sdk image...'
-$tag = 'dotnet-sdk:2.1.401'
+$tag = 'dotnet-sdk:2.1.504'
 time {docker build -t $tag .}
 docker image ls $tag
 docker history $tag
@@ -13,3 +13,7 @@ time {
         $tag `
         dotnet --info
 }
+
+Write-Output 'dotnet-sdk container environment variables:'
+$config = docker inspect $tag | ConvertFrom-Json
+$config.ContainerConfig.Env

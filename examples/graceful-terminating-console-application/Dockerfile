@@ -1,6 +1,6 @@
 # escape=`
-FROM powershell:6.0.4 as builder
-SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+FROM powershell:6.1.3 as builder
+SHELL ["pwsh.exe", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
     $url = 'https://github.com/rgl/graceful-terminating-console-application-windows/releases/download/v0.4.0/graceful-terminating-console-application-windows.zip'; `
     $sha256 = 'f4ed0d2e05a9689d29f56ac084d9b49f53894250c24f13c9944903ed9f1342e0'; `
@@ -16,9 +16,7 @@ RUN cd $env:TMP; `
     Write-Host 'Removing unneeded files...'; `
     Remove-Item graceful-terminating-console-application-windows.zip;
 
-FROM mcr.microsoft.com/nanoserver-insider:10.0.17744.1001
-# FROM mcr.microsoft.com/windowsservercore-insider:10.0.17744.1001
-# FROM mcr.microsoft.com/windows-insider:10.0.17744.1001
+FROM $BASEIMAGE
 COPY --from=builder /Windows/TEMP/graceful-terminating-console-application-windows.exe /app/
 RUN mkdir c:\host
 VOLUME ["c:/host"]

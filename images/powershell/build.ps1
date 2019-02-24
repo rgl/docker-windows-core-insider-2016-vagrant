@@ -1,5 +1,5 @@
-$version = '6.0.4'
-$sha256 = '0b04b63d2b63d4631cf5bd6e531f26b60f3cc1b1db41c8b5360f14776e66f797'
+$version = '6.1.3'
+$sha256 = 'aa01a6f11c76bbd3786e274dd65f2c85ff28c08b2d778a5fc26127dfec5e67b3'
 $url = "https://github.com/PowerShell/PowerShell/releases/download/v$version/PowerShell-$version-win-x64.zip"
 $filename = "$PWD\$(Split-Path -Leaf $url)"
 
@@ -26,6 +26,6 @@ time {
         --rm `
         --name powershell-smoke-test `
         $tag `
-        'C:/Program Files/PowerShell/pwsh.exe' `
-        -Command '$PSVersionTable'
+        pwsh.exe `
+        -Command '\"PATH environment variable items\";\"-------------------------------\";$env:PATH -split \";\";$PSVersionTable'
 }

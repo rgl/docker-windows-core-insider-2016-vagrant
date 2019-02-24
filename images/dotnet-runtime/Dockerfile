@@ -1,10 +1,11 @@
 # escape=`
-# see https://github.com/dotnet/core/blob/master/release-notes/2.1/2.1.3/2.1.3.md
-FROM powershell:6.0.4 as builder
-SHELL ["\"C:/Program Files/PowerShell/pwsh.exe\"", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+# see https://dotnet.microsoft.com/download/dotnet-core/2.1
+# see https://github.com/dotnet/core/blob/master/release-notes/2.1/2.1.8/2.1.8.md
+FROM powershell:6.1.3 as builder
+SHELL ["pwsh.exe", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN cd $env:TMP; `
-    $url = 'https://download.microsoft.com/download/6/E/B/6EBD972D-2E2F-41EB-9668-F73F5FDDC09C/dotnet-runtime-2.1.3-win-x64.zip'; `
-    $sha512 = 'eec3465a1dfecc3890e8c07d45198352a9ef4026bebc867ca8723ddf4bf30e83b79dfae4c5b8800a4b1b83d38c63be06b8ebf7c5dce87cf7108cbb83b169b47f'; `
+    $url = 'https://download.visualstudio.microsoft.com/download/pr/9b5aa463-d86c-4f8c-8dbb-26e323021246/3b75b083359c97b79da538cf40b041a0/dotnet-runtime-2.1.8-win-x64.zip'; `
+    $sha512 = '42cbfdb97e75e84b075afeb4c943fcf2697f3f0c2d4a5541dead23e6b9d3954a5eff465a4d0b73393257151a905fadb3b022ce883e44d72448f25707218c54f2'; `
     $filename = Split-Path -Leaf $url; `
     Write-Host ('Downloading {0}...' -f $url); `
     Invoke-WebRequest -Uri $url -OutFile $filename; `
@@ -18,9 +19,7 @@ RUN cd $env:TMP; `
     Write-Host 'Removing...'; `
     Remove-Item $filename -Force;
 
-FROM mcr.microsoft.com/nanoserver-insider:10.0.17744.1001
-COPY --from=builder ["/Windows/TEMP/dotnet", "/Program Files/dotnet/"]
-USER ContainerAdministrator
-RUN setx /m PATH "%PATH%;C:/Program Files/dotnet"
-RUN setx /m DOTNET_CLI_TELEMETRY_OPTOUT 1
-USER ContainerUser
+FROM mcr.microsoft.com/windows/nanoserver:1809
+COPY --from=builder ["C:/Windows/TEMP/dotnet", "C:/Program Files/dotnet"]
+ENV PATH='C:\Windows\System32;C:\Windows;C:\Program Files\PowerShell;C:\Program Files\dotnet' `
+    DOTNET_CLI_TELEMETRY_OPTOUT='1'
